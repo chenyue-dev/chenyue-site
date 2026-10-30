@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#f3f1ea" />
+    <title>内容管理 · 帅栈</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
+      })();
+    </script>
+    <script src="site-config.js" defer></script>
+    <script src="backend.js" defer></script>
+    <script src="resources-data.js" defer></script>
+    <script src="admin.js" defer></script>
+  </head>
+  <body data-page="admin" class="admin-page">
+    <header class="admin-header">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="brand-name">帅栈</span><span class="brand-en">CONTENT STUDIO</span>
+      </a>
+      <div class="admin-header-actions">
+        <span class="admin-connection" data-connection-status>正在检查数据服务…</span>
+        <a href="index.html" target="_blank">查看网站 ↗</a>
+        <button class="icon-button theme-toggle" type="button" aria-label="切换深浅色主题">
+          <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.1A8.5 8.5 0 0 1 9.9 3.5 8.5 8.5 0 1 0 20.5 14.1Z"></path></svg>
+        </button>
+        <button class="admin-signout" type="button" data-admin-signout hidden>退出</button>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <section class="admin-gate" data-admin-gate>
+        <div class="admin-gate-copy">
+          <p class="eyebrow">CONTENT STUDIO / 帅栈后台</p>
+          <h1>把新的想法，<br /><span>保存下来。</span></h1>
+          <p>这里用于管理文章、项目、资源与留言。后台不是公开页面，数据写入需要管理员权限。</p>
+        </div>
+        <div class="admin-auth-card">
+          <div class="admin-config-warning" data-config-warning hidden>
+            <strong>还差最后一步配置</strong>
+            <p>请先创建 Supabase 项目并填写 `site-config.js`。<a href="BACKEND_SETUP.md" target="_blank">打开后台与部署指南 ↗</a></p>
+          </div>
+          <form data-login-form>
+            <span class="admin-form-index">01 / OWNER LOGIN</span>
+            <h2>管理员登录</h2>
+            <p>输入管理员邮箱，我们会发送一个登录链接。第一次登录会自动创建账号，之后需要在 Supabase 中授予管理员权限。</p>
+            <label>
+              <span>邮箱</span>
+              <input type="email" name="email" placeholder="you@example.com" required autocomplete="email" />
+            </label>
+            <button class="button button-primary" type="submit">发送登录链接 <span>↗</span></button>
+            <p class="admin-form-message" data-login-message></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="admin-app" data-admin-app hidden>
+        <aside class="admin-sidebar">
+          <div class="admin-user">
+            <span>ADMIN</span>
+            <strong data-admin-email>管理员</strong>
+          </div>
+          <nav data-admin-nav aria-label="后台导航">
+            <button class="is-active" type="button" data-panel="overview"><span>01</span> 总览</button>
+            <button type="button" data-panel="posts"><span>02</span> 文章</button>
+            <button type="button" data-panel="projects"><span>03</span> 项目</button>
+            <button type="button" data-panel="resources"><span>04</span> 资源</button>
+            <button type="button" data-panel="comments"><span>05</span> 留言</button>
+          </nav>
+          <div class="admin-sidebar-note">
+            <span>REMEMBER</span>
+            <p>定期运行备份脚本。数据库、文章和图片都不是放进网站后就永远不会丢失。</p>
+          </div>
+        </aside>
+
+        <div class="admin-content">
+          <p class="admin-message" data-admin-message hidden></p>
+
+          <section class="admin-panel is-active" data-admin-panel="overview">
+            <div class="admin-panel-head">
+              <div><p class="eyebrow">OVERVIEW / 总览</p><h1>内容工作台</h1></div>
+              <span data-admin-date></span>
+            </div>
+            <div class="admin-stats">
+              <article><span>文章</span><strong data-stat-posts>00</strong><small>已保存到数据库</small></article>
+              <article><span>项目</span><strong data-stat-projects>00</strong><small>学习作品与案例</small></article>
+              <article><span>资源</span><strong data-stat-resources>00</strong><small>官方工具入口</small></article>
+              <article><span>待审留言</span><strong data-stat-comments>00</strong><small>审核后公开</small></article>
+            </div>
+            <div class="admin-quick-actions">
+              <div><span>QUICK START</span><h2>今天想记录什么？</h2></div>
+              <button type="button" data-quick-panel="posts">写一篇新文章</button>
+              <button type="button" data-quick-panel="projects">添加一个项目</button>
+              <button type="button" data-quick-panel="resources">收录一个工具</button>
+            </div>
+          </section>
+
+          <section class="admin-panel" data-admin-panel="posts">
+            <div class="admin-panel-head">
+              <div><p class="eyebrow">ARTICLES / 文章</p><h1>文章管理</h1></div>
+              <button class="button button-primary" type="button" data-new-post>新建文章 <span>＋</span></button>
+            </div>
+            <div class="admin-table" data-admin-posts></div>
+            <form class="editor-form" data-post-form hidden>
+              <input type="hidden" name="id" />
+              <div class="editor-form-top">
+                <span class="admin-form-index">ARTICLE EDITOR</span>
+                <button type="button" data-close-editor>关闭 ×</button>
+              </div>
+              <div class="form-grid two">
+                <label><span>文章标题 *</span><input name="title" required /></label>
+                <label><span>链接标识 slug *</span><input name="slug" pattern="[a-z0-9-]+" required placeholder="java-first-project" /></label>
+              </div>
+              <label><span>摘要 *</span><textarea name="excerpt" rows="3" required></textarea></label>
+              <div class="form-grid three">
+                <label><span>分类</span><input name="category" value="Java 学习" /></label>
+                <label><span>日期</span><input name="post_date" type="date" required /></label>
+                <label><span>阅读时间</span><input name="read_time" value="5 分钟阅读" /></label>
+              </div>
+              <div class="form-grid two">
+                <label><span>封面缩写</span><input name="cover_word" placeholder="JAVA / START" /></label>
+                <label><span>封面图片地址</span><input name="cover_image" data-image-target="post-cover" placeholder="上传后自动填写" /></label>
+              </div>
+              <div class="editor-upload-row">
+                <label class="file-button">上传封面<input type="file" accept="image/*" data-upload-to="cover_image" data-upload-folder="covers" /></label>
+              </div>
+              <label>
+                <span>正文（支持 Markdown）</span>
+                <textarea name="body" rows="22" required placeholder="## 从一个问题开始&#10;&#10;写下你的正文……"></textarea>
+              </label>
+              <div class="editor-upload-row">
+                <label class="file-button">上传正文图片<input type="file" accept="image/*" data-upload-to="body" data-upload-folder="posts" /></label>
+                <small>图片上传完成后，Markdown 图片语法会插入到正文光标位置。</small>
+              </div>
+              <label class="checkbox-label"><input type="checkbox" name="published" checked /> <span>立即发布</span></label>
+              <div class="editor-actions">
+                <span data-form-message></span>
+                <button class="button button-primary" type="submit">保存文章 <span>↗</span></button>
+              </div>
+            </form>
+          </section>
+
+          <section class="admin-panel" data-admin-panel="projects">
+            <div class="admin-panel-head">
+              <div><p class="eyebrow">PROJECTS / 项目</p><h1>项目管理</h1></div>
+              <button class="button button-primary" type="button" data-new-project>新建项目 <span>＋</span></button>
+            </div>
+            <div class="admin-table" data-admin-projects></div>
+            <form class="editor-form" data-project-form hidden>
+              <input type="hidden" name="id" />
+              <div class="editor-form-top">
+                <span class="admin-form-index">PROJECT EDITOR</span>
+                <button type="button" data-close-editor>关闭 ×</button>
+              </div>
+              <div class="form-grid two">
+                <label><span>项目名称 *</span><input name="title" required /></label>
+                <label><span>链接标识 slug *</span><input name="slug" pattern="[a-z0-9-]+" required /></label>
+              </div>
+              <label><span>一句话简介 *</span><textarea name="summary" rows="3" required></textarea></label>
+              <div class="form-grid two">
+                <label><span>项目状态</span><input name="status" value="持续构建" /></label>
+                <label><span>技术栈</span><input name="tech_stack" placeholder="Java · Spring Boot · MySQL" /></label>
+              </div>
+              <div class="form-grid two">
+                <label><span>项目地址</span><input name="project_url" type="url" /></label>
+                <label><span>GitHub 地址</span><input name="repo_url" type="url" /></label>
+              </div>
+              <div class="form-grid two">
+                <label><span>封面图片地址</span><input name="cover_image" placeholder="上传后自动填写" /></label>
+                <div class="editor-upload-row compact">
+                  <label class="file-button">上传封面<input type="file" accept="image/*" data-upload-to="cover_image" data-upload-folder="projects" /></label>
+                </div>
+              </div>
+              <label><span>项目说明（支持 Markdown）</span><textarea name="body" rows="15" required></textarea></label>
+              <div class="form-grid two checks">
+                <label class="checkbox-label"><input type="checkbox" name="featured" /> <span>精选项目</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="published" checked /> <span>公开展示</span></label>
+              </div>
+              <div class="editor-actions">
+                <span data-form-message></span>
+                <button class="button button-primary" type="submit">保存项目 <span>↗</span></button>
+              </div>
+            </form>
+          </section>
+
+          <section class="admin-panel" data-admin-panel="resources">
+            <div class="admin-panel-head">
+              <div><p class="eyebrow">RESOURCES / 资源</p><h1>资源管理</h1></div>
+              <button class="button button-primary" type="button" data-new-resource>新增资源 <span>＋</span></button>
+            </div>
+            <div class="admin-hint">
+              <p>首次启用数据库时，可以一键导入网站内置的 95 个资源，之后在这里维护。</p>
+              <button type="button" data-import-resources>导入内置资源</button>
+            </div>
+            <div class="admin-table" data-admin-resources></div>
+            <form class="editor-form" data-resource-form hidden>
+              <input type="hidden" name="id" />
+              <div class="editor-form-top">
+                <span class="admin-form-index">RESOURCE EDITOR</span>
+                <button type="button" data-close-editor>关闭 ×</button>
+              </div>
+              <div class="form-grid two">
+                <label><span>工具名称 *</span><input name="name" required /></label>
+                <label><span>分类 *</span><input name="category" required /></label>
+              </div>
+              <label><span>官方网址 *</span><input name="url" type="url" required /></label>
+              <label><span>工具说明 *</span><textarea name="description" rows="4" required></textarea></label>
+              <div class="form-grid two">
+                <label><span>入口类型</span><input name="resource_type" value="官方下载" /></label>
+                <label><span>标签（用逗号分隔）</span><input name="tags" placeholder="Java, Windows, 免费" /></label>
+              </div>
+              <label class="checkbox-label"><input type="checkbox" name="featured" /> <span>首页推荐</span></label>
+              <div class="editor-actions">
+                <span data-form-message></span>
+                <button class="button button-primary" type="submit">保存资源 <span>↗</span></button>
+              </div>
+            </form>
+          </section>
+
+          <section class="admin-panel" data-admin-panel="comments">
+            <div class="admin-panel-head">
+              <div><p class="eyebrow">COMMENTS / 留言</p><h1>留言审核</h1></div>
+              <button type="button" class="admin-refresh" data-refresh-comments>刷新</button>
+            </div>
+            <p class="admin-panel-intro">新留言默认处于待审核状态。通过后才会在文章页公开展示。</p>
+            <div class="admin-comments" data-admin-comments></div>
+          </section>
+        </div>
+      </section>
+    </main>
+    <div class="admin-toast" data-admin-toast hidden></div>
+  </body>
+</html>

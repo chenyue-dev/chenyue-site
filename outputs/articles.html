@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="帅栈的全部文章：Java、全栈开发、工程实践、开发工具与个人成长。" />
+    <meta name="theme-color" content="#f3f1ea" />
+    <title>文章归档 · 帅栈</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
+      })();
+    </script>
+    <script src="site-config.js" defer></script>
+    <script src="backend.js" defer></script>
+    <script src="resources-data.js" defer></script>
+    <script src="projects-data.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body data-page="articles">
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+    <header class="site-header">
+      <div class="nav-shell">
+        <a class="brand" href="index.html" aria-label="帅栈首页">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="brand-name">帅栈</span>
+          <span class="brand-en">SHUAI STACK</span>
+        </a>
+        <nav class="desktop-nav" aria-label="主导航">
+          <a href="index.html" data-nav="home">首页 <span>01</span></a>
+          <a href="projects.html" data-nav="projects">项目 <span>02</span></a>
+          <a href="articles.html" data-nav="articles">文章 <span>03</span></a>
+          <a href="resources.html" data-nav="resources">资源 <span>04</span></a>
+          <a href="about.html" data-nav="about">关于 <span>05</span></a>
+        </nav>
+        <div class="nav-actions">
+          <button class="icon-button search-trigger" type="button" aria-label="搜索文章与资源">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg>
+          </button>
+          <button class="icon-button theme-toggle" type="button" aria-label="切换深浅色主题">
+            <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.1A8.5 8.5 0 0 1 9.9 3.5 8.5 8.5 0 1 0 20.5 14.1Z"></path></svg>
+          </button>
+          <button class="menu-toggle" type="button" aria-label="打开菜单" aria-expanded="false"><span></span><span></span></button>
+        </div>
+      </div>
+      <nav class="mobile-nav" aria-label="移动端导航">
+        <a href="index.html">首页</a><a href="projects.html">项目</a><a href="articles.html">文章</a><a href="resources.html">资源</a><a href="about.html">关于</a>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="archive-hero section-shell">
+        <p class="eyebrow">ARCHIVE / 文章归档</p>
+        <div class="archive-title-row">
+          <h1>所有文章<span>.</span></h1>
+          <p>写代码，也写代码背后的判断。<br />持续整理，持续推翻，持续生长。</p>
+        </div>
+        <div class="archive-count">
+          <strong data-article-count>06</strong>
+          <span>篇公开笔记</span>
+        </div>
+      </section>
+
+      <section class="archive section-shell">
+        <div class="archive-toolbar">
+          <div class="filter-tabs" role="tablist" aria-label="文章分类">
+            <button class="filter-tab is-active" type="button" data-filter="全部" role="tab" aria-selected="true">全部</button>
+            <button class="filter-tab" type="button" data-filter="前端开发" role="tab" aria-selected="false">前端开发</button>
+            <button class="filter-tab" type="button" data-filter="产品思考" role="tab" aria-selected="false">产品思考</button>
+            <button class="filter-tab" type="button" data-filter="工程实践" role="tab" aria-selected="false">工程实践</button>
+            <button class="filter-tab" type="button" data-filter="成长" role="tab" aria-selected="false">成长</button>
+          </div>
+          <label class="archive-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg>
+            <input type="search" placeholder="筛选文章…" data-archive-search />
+          </label>
+        </div>
+        <div class="archive-list" data-post-list="archive"></div>
+        <div class="archive-empty" data-archive-empty hidden>
+          <span>∅</span>
+          <h2>没有找到相关文章</h2>
+          <p>换一个关键词或分类试试。</p>
+        </div>
+      </section>
+
+      <section class="topics section-shell">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">TOPICS / 专题</p>
+            <h2>沿着兴趣深入</h2>
+          </div>
+        </div>
+        <div class="topic-grid">
+          <button class="topic-card topic-green" type="button" data-topic-filter="前端开发">
+            <span>01 / WEB</span><h3>把网页做得<br />更好一点</h3><b>↗</b>
+          </button>
+          <button class="topic-card topic-orange" type="button" data-topic-filter="产品思考">
+            <span>02 / PRODUCT</span><h3>从功能到<br />真正的价值</h3><b>↗</b>
+          </button>
+          <button class="topic-card topic-blue" type="button" data-topic-filter="成长">
+            <span>03 / GROWTH</span><h3>长期主义的<br />工程实践</h3><b>↗</b>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-top section-shell">
+        <div><p class="eyebrow">STAY CURIOUS.</p><h2>保持好奇，<br />持续记录。</h2></div>
+        <div class="footer-links">
+          <div><span>导航</span><a href="projects.html">项目作品</a><a href="articles.html">文章归档</a><a href="resources.html">开发资源库</a></div>
+          <div><span>站点</span><a href="about.html">关于作者</a><a href="admin.html">管理后台 ↗</a><a href="#" data-rss-link>RSS ↗</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom section-shell"><span>© <span data-current-year></span> 帅栈 · SHUAI STACK</span><span>用好奇心构建 · 用文字记录</span></div>
+    </footer>
+
+    <dialog class="search-dialog" aria-labelledby="search-title">
+      <div class="search-panel">
+        <div class="search-panel-top"><label id="search-title" for="global-search">搜索文章与资源</label><button class="search-close" type="button" aria-label="关闭搜索">ESC</button></div>
+        <div class="search-input-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg><input id="global-search" type="search" placeholder="输入文章、工具或技术关键词…" autocomplete="off" /></div>
+        <div class="search-results" data-search-results><p class="search-empty">输入关键词，在文章与资源库中寻找答案。</p></div>
+      </div>
+    </dialog>
+    <button class="back-to-top" type="button" aria-label="回到顶部">↑</button>
+  </body>
+</html>

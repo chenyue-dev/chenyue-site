@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="帅栈开发者资源库：Java 开发工具、IDE、数据库、前端环境、系统软件与 AI 网站官方链接。"
+    />
+    <meta name="theme-color" content="#f3f1ea" />
+    <title>开发资源库 · 帅栈</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
+      })();
+    </script>
+    <script src="site-config.js" defer></script>
+    <script src="backend.js" defer></script>
+    <script src="resources-data.js" defer></script>
+    <script src="projects-data.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body data-page="resources">
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+    <header class="site-header">
+      <div class="nav-shell">
+        <a class="brand" href="index.html" aria-label="帅栈首页">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="brand-name">帅栈</span>
+          <span class="brand-en">SHUAI STACK</span>
+        </a>
+        <nav class="desktop-nav" aria-label="主导航">
+          <a href="index.html" data-nav="home">首页 <span>01</span></a>
+          <a href="projects.html" data-nav="projects">项目 <span>02</span></a>
+          <a href="articles.html" data-nav="articles">文章 <span>03</span></a>
+          <a href="resources.html" data-nav="resources">资源 <span>04</span></a>
+          <a href="about.html" data-nav="about">关于 <span>05</span></a>
+        </nav>
+        <div class="nav-actions">
+          <button class="icon-button search-trigger" type="button" aria-label="搜索文章与资源">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg>
+          </button>
+          <button class="icon-button theme-toggle" type="button" aria-label="切换深浅色主题">
+            <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.1A8.5 8.5 0 0 1 9.9 3.5 8.5 8.5 0 1 0 20.5 14.1Z"></path></svg>
+          </button>
+          <button class="menu-toggle" type="button" aria-label="打开菜单" aria-expanded="false"><span></span><span></span></button>
+        </div>
+      </div>
+      <nav class="mobile-nav" aria-label="移动端导航">
+        <a href="index.html">首页</a><a href="projects.html">项目</a><a href="articles.html">文章</a><a href="resources.html">资源</a><a href="about.html">关于</a>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="resource-hero section-shell">
+        <div class="resource-hero-copy">
+          <p class="eyebrow"><span class="status-dot"></span> TOOLBOX / 小帅的开发资源库</p>
+          <h1>好工具，<br /><span>一次找齐。</span></h1>
+          <p>
+            Java、IDE、数据库、前端、系统软件与 AI 工具。
+            每个入口优先指向官方网站，减少绕路，也避开不明安装包。
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#resource-directory">浏览全部资源 <span>↓</span></a>
+            <a class="text-link" href="#ai-tools">查看 AI 工具 <span>↗</span></a>
+          </div>
+        </div>
+        <div class="resource-console" aria-label="资源库分类概览">
+          <div class="console-top"><span>SHUAI_STACK / TOOLBOX</span><b>● ONLINE</b></div>
+          <div class="console-screen">
+            <div class="console-orbit"></div>
+            <span class="console-code">&lt;tools /&gt;</span>
+            <div class="console-float console-java">JAVA</div>
+            <div class="console-float console-ai">AI</div>
+            <div class="console-float console-db">DB</div>
+            <div class="console-float console-web">WEB</div>
+          </div>
+          <div class="console-bottom">
+            <span><strong data-resource-count>00</strong> 个官方入口</span>
+            <span><strong data-resource-category-count>00</strong> 个分类</span>
+            <span>2026.10 更新</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="resource-start section-shell">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">START HERE / 新手先装</p>
+            <h2>新手与学生的起步推荐</h2>
+          </div>
+          <p class="heading-note">先把开发环境跑起来，再开始写第一个完整项目。</p>
+        </div>
+        <div class="featured-resource-grid" data-featured-resources></div>
+      </section>
+
+      <section class="resource-directory-section section-shell" id="resource-directory">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">DIRECTORY / 全部资源</p>
+            <h2>开发工具与 AI 导航</h2>
+          </div>
+          <a class="text-link" href="#ai-tools">直达 AI 工具 <span>↓</span></a>
+        </div>
+
+        <div class="resource-directory">
+          <aside class="resource-sidebar">
+            <span class="resource-sidebar-title">分类浏览</span>
+            <div class="resource-categories" data-resource-categories></div>
+            <p class="resource-disclaimer">
+              本站只做资源索引。安装前请核对官网、系统版本和许可协议，不要从来路不明的网盘下载软件。
+            </p>
+          </aside>
+
+          <div class="resource-main">
+            <div class="resource-toolbar">
+              <label class="resource-search">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg>
+                <input type="search" placeholder="搜索 JDK、IDEA、MySQL、ChatGPT…" data-resource-search />
+              </label>
+              <span class="resource-result-count"><strong data-resource-result-count>00</strong> 条结果</span>
+            </div>
+            <div class="resource-grid" data-resource-grid></div>
+            <div class="resource-empty" data-resource-empty hidden>
+              <span>∅</span>
+              <h3>暂时没有找到这个工具</h3>
+              <p>换一个名称或分类试试，后续资源还会继续增加。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ai-note section-shell" id="ai-tools">
+        <div class="ai-note-mark">AI</div>
+        <div>
+          <p class="eyebrow">USE AI WISELY / 合理使用 AI</p>
+          <h2>把 AI 当作学习搭档，<br />而不是答案代替品。</h2>
+        </div>
+        <div class="ai-note-copy">
+          <p>
+            AI 可以帮助解释报错、整理知识、生成练习和检查思路，但关键代码仍要自己运行、理解和验证。
+            涉及账号、隐私和公司代码时，不要直接上传敏感内容。
+          </p>
+          <button class="text-link" type="button" data-ai-filter>只看 AI 工具 <span>↗</span></button>
+        </div>
+      </section>
+
+      <section class="resource-update section-shell">
+        <span>LAST UPDATED / 最后整理</span>
+        <strong>2026.10.30</strong>
+        <p>资源库会随着小帅的学习进度持续增加。发现链接失效，可以在网站正式上线后通过留言反馈。</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-top section-shell">
+        <div><p class="eyebrow">STAY CURIOUS.</p><h2>保持好奇，<br />持续记录。</h2></div>
+        <div class="footer-links">
+          <div><span>导航</span><a href="projects.html">项目作品</a><a href="articles.html">文章归档</a><a href="resources.html">开发资源库</a></div>
+          <div><span>站点</span><a href="about.html">关于作者</a><a href="admin.html">管理后台 ↗</a><a href="#" data-rss-link>RSS ↗</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom section-shell"><span>© <span data-current-year></span> 帅栈 · SHUAI STACK</span><span>用好奇心构建 · 用文字记录</span></div>
+    </footer>
+
+    <dialog class="search-dialog" aria-labelledby="search-title">
+      <div class="search-panel">
+        <div class="search-panel-top"><label id="search-title" for="global-search">搜索文章与资源</label><button class="search-close" type="button" aria-label="关闭搜索">ESC</button></div>
+        <div class="search-input-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg><input id="global-search" type="search" placeholder="输入技术、工具或关键词…" autocomplete="off" /></div>
+        <div class="search-results" data-search-results><p class="search-empty">输入关键词，在文章和资源库中寻找答案。</p></div>
+      </div>
+    </dialog>
+    <button class="back-to-top" type="button" aria-label="回到顶部">↑</button>
+  </body>
+</html>

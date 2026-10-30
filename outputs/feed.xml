@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>帅栈 · Shuai Stack</title>
+    <link>https://your-project.pages.dev/</link>
+    <description>小帅的 Java 全栈实验室，记录代码、工程实践与开发工具。</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 30 Oct 2026 20:00:00 +0800</lastBuildDate>
+    <item>
+      <title>从零搭建一个真正属于你的技术博客</title>
+      <link>https://your-project.pages.dev/posts/build-your-own-tech-blog</link>
+      <guid>https://your-project.pages.dev/posts/build-your-own-tech-blog</guid>
+      <description>博客不只是一个展示页。它是你的知识资产、思考轨迹，也是与世界建立连接的入口。</description>
+      <pubDate>Sat, 24 Oct 2026 09:00:00 +0800</pubDate>
+    </item>
+    <item>
+      <title>我怎样设计一套可持续的个人知识系统</title>
+      <link>https://your-project.pages.dev/posts/sustainable-knowledge-system</link>
+      <guid>https://your-project.pages.dev/posts/sustainable-knowledge-system</guid>
+      <description>从收集、加工到输出，一套不依赖复杂工具的知识管理方法。</description>
+      <pubDate>Sun, 18 Oct 2026 09:00:00 +0800</pubDate>
+    </item>
+    <item>
+      <title>CSS Container Queries：让组件真正学会适配</title>
+      <link>https://your-project.pages.dev/posts/css-container-queries</link>
+      <guid>https://your-project.pages.dev/posts/css-container-queries</guid>
+      <description>用新的响应式思维重构组件，让样式基于可用空间而不是整个视口。</description>
+      <pubDate>Sun, 11 Oct 2026 09:00:00 +0800</pubDate>
+    </item>
+    <item>
+      <title>用 JavaScript 写一个克制的阅读进度条</title>
+      <link>https://your-project.pages.dev/posts/reading-progress-bar</link>
+      <guid>https://your-project.pages.dev/posts/reading-progress-bar</guid>
+      <description>一个不打扰阅读、兼容减少动态效果偏好的实用交互。</description>
+      <pubDate>Tue, 29 Sep 2026 09:00:00 +0800</pubDate>
+    </item>
+    <item>
+      <title>代码之外：技术写作如何让思路变清晰</title>
+      <link>https://your-project.pages.dev/posts/writing-makes-thinking-clear</link>
+      <guid>https://your-project.pages.dev/posts/writing-makes-thinking-clear</guid>
+      <description>当你尝试解释一个系统时，隐藏的假设会逐一暴露出来。</description>
+      <pubDate>Wed, 16 Sep 2026 09:00:00 +0800</pubDate>
+    </item>
+    <item>
+      <title>一次 Node.js 性能排查记录：从现象到证据</title>
+      <link>https://your-project.pages.dev/posts/nodejs-performance-hunt</link>
+      <guid>https://your-project.pages.dev/posts/nodejs-performance-hunt</guid>
+      <description>不要靠直觉猜性能问题。用可观测数据、最小复现和逐步排除找到真正的瓶颈。</description>
+      <pubDate>Fri, 28 Aug 2026 09:00:00 +0800</pubDate>
+    </item>
+  </channel>
+</rss>

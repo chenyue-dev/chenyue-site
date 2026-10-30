@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="帅栈项目详情。" />
+    <meta name="theme-color" content="#f3f1ea" />
+    <title>项目 · 帅栈</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
+      })();
+    </script>
+    <script src="site-config.js" defer></script>
+    <script src="backend.js" defer></script>
+    <script src="resources-data.js" defer></script>
+    <script src="projects-data.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body data-page="project">
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+    <header class="site-header">
+      <div class="nav-shell">
+        <a class="brand" href="index.html" aria-label="帅栈首页">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="brand-name">帅栈</span><span class="brand-en">SHUAI STACK</span>
+        </a>
+        <nav class="desktop-nav" aria-label="主导航">
+          <a href="index.html" data-nav="home">首页 <span>01</span></a>
+          <a href="projects.html" data-nav="projects">项目 <span>02</span></a>
+          <a href="articles.html" data-nav="articles">文章 <span>03</span></a>
+          <a href="resources.html" data-nav="resources">资源 <span>04</span></a>
+          <a href="about.html" data-nav="about">关于 <span>05</span></a>
+        </nav>
+        <div class="nav-actions">
+          <button class="icon-button search-trigger" type="button" aria-label="搜索文章与资源">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg>
+          </button>
+          <button class="icon-button theme-toggle" type="button" aria-label="切换深浅色主题">
+            <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.1A8.5 8.5 0 0 1 9.9 3.5 8.5 8.5 0 1 0 20.5 14.1Z"></path></svg>
+          </button>
+          <button class="menu-toggle" type="button" aria-label="打开菜单" aria-expanded="false"><span></span><span></span></button>
+        </div>
+      </div>
+      <nav class="mobile-nav" aria-label="移动端导航">
+        <a href="index.html">首页</a><a href="projects.html">项目</a><a href="articles.html">文章</a><a href="resources.html">资源</a><a href="about.html">关于</a>
+      </nav>
+    </header>
+
+    <main id="main-content" data-project-page>
+      <article>
+        <header class="project-detail-hero section-shell">
+          <a class="back-link" href="projects.html">← 返回项目</a>
+          <div class="project-detail-meta">
+            <span data-project-status>持续构建</span>
+            <span data-project-date>2026</span>
+          </div>
+          <h1 data-project-title>帅栈个人技术站</h1>
+          <p data-project-summary></p>
+          <div class="project-detail-actions" data-project-links></div>
+        </header>
+        <div class="project-cover section-shell" data-project-cover>
+          <div class="project-cover-grid"></div>
+          <span data-project-cover-mark>&lt;/&gt;</span>
+          <small>BUILD / LEARN / SHARE</small>
+        </div>
+        <div class="project-detail-layout section-shell">
+          <aside>
+            <span>TECH STACK</span>
+            <div class="project-stack" data-project-stack></div>
+          </aside>
+          <div class="article-body" data-project-body></div>
+        </div>
+      </article>
+      <section class="next-read section-shell">
+        <p class="eyebrow">MORE PROJECTS / 更多项目</p>
+        <div data-project-next></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-top section-shell">
+        <div><p class="eyebrow">STAY CURIOUS.</p><h2>保持好奇，<br />持续记录。</h2></div>
+        <div class="footer-links">
+          <div><span>导航</span><a href="projects.html">项目作品</a><a href="articles.html">文章归档</a><a href="resources.html">开发资源库</a></div>
+          <div><span>站点</span><a href="about.html">关于小帅</a><a href="admin.html">管理后台</a><a href="#" data-rss-link>RSS ↗</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom section-shell"><span>© <span data-current-year></span> 帅栈 · SHUAI STACK</span><span>用好奇心构建 · 用文字记录</span></div>
+    </footer>
+    <dialog class="search-dialog" aria-labelledby="search-title">
+      <div class="search-panel">
+        <div class="search-panel-top"><label id="search-title" for="global-search">搜索文章与项目</label><button class="search-close" type="button" aria-label="关闭搜索">ESC</button></div>
+        <div class="search-input-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg><input id="global-search" type="search" placeholder="输入文章、项目或技术关键词…" autocomplete="off" /></div>
+        <div class="search-results" data-search-results><p class="search-empty">输入关键词，寻找文章和项目。</p></div>
+      </div>
+    </dialog>
+    <button class="back-to-top" type="button" aria-label="回到顶部">↑</button>
+  </body>
+</html>
