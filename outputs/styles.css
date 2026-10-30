@@ -4261,6 +4261,41 @@ svg {
   background: var(--bg);
 }
 
+.admin-oauth-button {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admin-oauth-button:hover {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.admin-login-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 8px;
+}
+
+.admin-login-divider::before,
+.admin-login-divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: var(--line);
+}
+
 .admin-form-index {
   color: var(--muted);
   font-family: var(--font-mono);

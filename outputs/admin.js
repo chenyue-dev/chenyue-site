@@ -420,6 +420,15 @@
   }
 
   function setupEvents() {
+    $("[data-github-login]")?.addEventListener("click", () => {
+      try {
+        backend.signInWithGitHub(window.location.href);
+      } catch (error) {
+        const message = $("[data-login-message]");
+        if (message) message.textContent = `GitHub 登录失败：${error.message}`;
+      }
+    });
+
     $("[data-login-form]")?.addEventListener("submit", async (event) => {
       event.preventDefault();
       const button = $('button[type="submit"]', event.currentTarget);

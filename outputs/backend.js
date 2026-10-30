@@ -169,6 +169,14 @@
     return parseResponse(response);
   }
 
+  function signInWithGitHub(redirectTo = window.location.href) {
+    if (!configured) throw new Error("Supabase 尚未配置");
+    const url = new URL(`${baseUrl}/auth/v1/authorize`);
+    url.searchParams.set("provider", "github");
+    url.searchParams.set("redirect_to", redirectTo);
+    window.location.assign(url.toString());
+  }
+
   async function signOut() {
     const session = readSession();
     if (configured && session?.access_token) {
@@ -250,6 +258,7 @@
     update,
     remove,
     signInWithEmail,
+    signInWithGitHub,
     signOut,
     uploadImage,
   };
