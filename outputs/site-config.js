@@ -8,8 +8,8 @@
  * 绝对不要把 service_role key 写进任何前端文件。
  */
 window.SITE_CONFIG = {
-  supabaseUrl: "",
-  supabaseAnonKey: "",
+  supabaseUrl: "https://rsopweveszbwgjzfoqfl.supabase.co",
+  supabaseAnonKey: "sb_publishable_63gOWqhIWGdE6PHixyw2iA_8g0WhCGy",
   storageBucket: "media",
-  siteUrl: "",
+  siteUrl: "https://chenyue-dev.github.io/chenyue-site/outputs/",
 };
