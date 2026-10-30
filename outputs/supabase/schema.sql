@@ -79,7 +79,7 @@ create table if not exists public.resources (
 create table if not exists public.comments (
   id uuid primary key default gen_random_uuid(),
   article_slug text not null check (char_length(article_slug) between 1 and 180),
-  user_id uuid not null references auth.users(id) on delete cascade,
+  user_id uuid references auth.users(id) on delete set null,
   author_name text not null check (char_length(author_name) between 1 and 30),
   content text not null check (char_length(content) between 1 and 1200),
   status text not null default 'pending' check (status in ('pending', 'approved', 'spam')),
@@ -91,6 +91,13 @@ create index if not exists posts_published_date_idx on public.posts (published, 
 create index if not exists projects_published_order_idx on public.projects (published, sort_order, created_at desc);
 create index if not exists resources_order_idx on public.resources (sort_order, name);
 create index if not exists comments_article_status_idx on public.comments (article_slug, status, created_at desc);
+
+grant usage on schema public to anon, authenticated;
+grant select on public.posts, public.projects, public.resources, public.comments to anon;
+grant insert on public.comments to anon;
+grant select on public.site_admins to authenticated;
+grant select, insert, update, delete on public.posts, public.projects, public.resources to authenticated;
+grant select, insert, update, delete on public.comments to authenticated;
 
 create or replace function public.touch_updated_at()
 returns trigger
@@ -184,12 +191,13 @@ using (
 );
 
 drop policy if exists "signed in users create pending comments" on public.comments;
-create policy "signed in users create pending comments"
+drop policy if exists "visitors create pending comments" on public.comments;
+create policy "visitors create pending comments"
 on public.comments for insert
-to authenticated
+to anon, authenticated
 with check (
-  user_id = auth.uid()
-  and status = 'pending'
+  status = 'pending'
+  and (user_id is null or user_id = auth.uid())
 );
 
 drop policy if exists "admin updates comments" on public.comments;

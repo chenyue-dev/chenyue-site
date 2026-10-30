@@ -862,10 +862,12 @@ async function setupComments(articleSlug) {
   const updateAuthState = async () => {
     const user = await backend?.currentUser();
     if (!backend?.configured) return;
-    if (authBox) authBox.hidden = Boolean(user);
-    if (form) form.hidden = !user;
+    if (authBox) authBox.hidden = true;
+    if (form) form.hidden = false;
     const userLabel = $("[data-comment-user]", section);
-    if (userLabel && user) userLabel.textContent = user.email || "已登录";
+    if (userLabel) userLabel.textContent = user?.email || "访客 · 提交后等待审核";
+    const signOutButton = $("[data-comment-signout]", section);
+    if (signOutButton) signOutButton.hidden = !user;
   };
 
   $("[data-comment-login-form]", section)?.addEventListener("submit", async (event) => {
@@ -887,18 +889,13 @@ async function setupComments(articleSlug) {
     const submitButton = $('button[type="submit"]', form);
     const formData = new FormData(form);
     const user = await backend.currentUser();
-    if (!user) {
-      if (message) message.textContent = "登录状态已失效，请重新登录。";
-      await updateAuthState();
-      return;
-    }
 
     if (submitButton) submitButton.disabled = true;
     if (message) message.textContent = "正在提交…";
     try {
       await backend.insert("comments", {
         article_slug: articleSlug,
-        user_id: user.id,
+        ...(user?.id ? { user_id: user.id } : {}),
         author_name: String(formData.get("author_name")).trim(),
         content: String(formData.get("content")).trim(),
         status: "pending",
