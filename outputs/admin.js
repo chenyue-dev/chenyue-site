@@ -239,6 +239,7 @@
     form.reset();
     form.hidden = false;
     form.elements.id.value = post?.id || "";
+    form.elements.body_format.value = post?.body_format || "markdown";
     form.elements.title.value = post?.title || "";
     form.elements.slug.value = post?.slug || "";
     form.elements.excerpt.value = post?.excerpt || "";
@@ -259,6 +260,7 @@
     form.reset();
     form.hidden = false;
     form.elements.id.value = project?.id || "";
+    form.elements.body_format.value = project?.body_format || "markdown";
     form.elements.title.value = project?.title || "";
     form.elements.slug.value = project?.slug || "";
     form.elements.summary.value = project?.summary || "";
@@ -370,6 +372,80 @@
         await backend.insert("resources", resources.slice(index, index + 35));
       }
       toast(`已导入 ${resources.length} 个资源`);
+      await loadAll();
+    } catch (error) {
+      toast(`导入失败：${error.message}`, "error");
+    } finally {
+      setButtonBusy(button, false);
+    }
+  }
+
+  async function importBuiltInPosts() {
+    const button = $("[data-import-posts]");
+    const existingSlugs = new Set(state.posts.map((post) => post.slug));
+    const posts = (window.SITE_POSTS || [])
+      .filter((post) => !existingSlugs.has(post.slug))
+      .map((post) => ({
+        slug: post.slug,
+        title: post.title,
+        excerpt: post.excerpt || "",
+        category: post.category || "技术笔记",
+        post_date: post.date,
+        read_time: post.readTime || "5 分钟阅读",
+        cover_word: post.coverWord || "",
+        cover_image: post.coverImage || "",
+        body: post.body || "",
+        body_format: "html",
+        featured: Boolean(post.featured),
+        published: true,
+      }));
+    if (!posts.length) {
+      toast("内置示例文章已经全部导入");
+      return;
+    }
+    setButtonBusy(button, true, "正在导入…");
+    try {
+      for (let index = 0; index < posts.length; index += 20) {
+        await backend.insert("posts", posts.slice(index, index + 20));
+      }
+      toast(`已导入 ${posts.length} 篇示例文章`);
+      await loadAll();
+    } catch (error) {
+      toast(`导入失败：${error.message}`, "error");
+    } finally {
+      setButtonBusy(button, false);
+    }
+  }
+
+  async function importBuiltInProjects() {
+    const button = $("[data-import-projects]");
+    const existingSlugs = new Set(state.projects.map((project) => project.slug));
+    const projects = (window.SITE_PROJECTS || [])
+      .filter((project) => !existingSlugs.has(project.slug))
+      .map((project, index) => ({
+        slug: project.slug,
+        title: project.title,
+        summary: project.summary || "",
+        description: project.description || "",
+        body: project.body || project.description || "",
+        body_format: "html",
+        tech_stack: project.tech_stack || "",
+        status: project.status || "持续构建",
+        cover_image: project.cover_image || "",
+        project_url: project.project_url || "",
+        repo_url: project.repo_url || "",
+        featured: Boolean(project.featured),
+        published: true,
+        sort_order: index + 1,
+      }));
+    if (!projects.length) {
+      toast("内置示例项目已经全部导入");
+      return;
+    }
+    setButtonBusy(button, true, "正在导入…");
+    try {
+      await backend.insert("projects", projects);
+      toast(`已导入 ${projects.length} 个示例项目`);
       await loadAll();
     } catch (error) {
       toast(`导入失败：${error.message}`, "error");
@@ -494,7 +570,7 @@
           cover_word: form.elements.cover_word.value.trim(),
           cover_image: form.elements.cover_image.value.trim(),
           body: form.elements.body.value,
-          body_format: "markdown",
+          body_format: form.elements.body_format.value || "markdown",
           published: form.elements.published.checked,
         },
         () => renderPosts(),
@@ -518,7 +594,7 @@
           repo_url: form.elements.repo_url.value.trim(),
           cover_image: form.elements.cover_image.value.trim(),
           body: form.elements.body.value,
-          body_format: "markdown",
+          body_format: form.elements.body_format.value || "markdown",
           featured: form.elements.featured.checked,
           published: form.elements.published.checked,
         },
@@ -554,6 +630,8 @@
     });
 
     $("[data-import-resources]")?.addEventListener("click", importBuiltInResources);
+    $("[data-import-posts]")?.addEventListener("click", importBuiltInPosts);
+    $("[data-import-projects]")?.addEventListener("click", importBuiltInProjects);
     $("[data-refresh-comments]")?.addEventListener("click", loadAll);
 
     $("[data-admin-posts]")?.addEventListener("click", async (event) => {

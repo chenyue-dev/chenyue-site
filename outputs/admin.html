@@ -18,6 +18,8 @@
     <script src="site-config.js" defer></script>
     <script src="backend.js" defer></script>
     <script src="resources-data.js" defer></script>
+    <script src="posts-data.js" defer></script>
+    <script src="projects-data.js" defer></script>
     <script src="admin.js" defer></script>
   </head>
   <body data-page="admin" class="admin-page">
@@ -113,9 +115,14 @@
               <div><p class="eyebrow">ARTICLES / 文章</p><h1>文章管理</h1></div>
               <button class="button button-primary" type="button" data-new-post>新建文章 <span>＋</span></button>
             </div>
+            <div class="admin-hint">
+              <p>可以把网站内置的 6 篇示例文章导入数据库，之后统一编辑和维护。</p>
+              <button type="button" data-import-posts>导入示例文章</button>
+            </div>
             <div class="admin-table" data-admin-posts></div>
             <form class="editor-form" data-post-form hidden>
               <input type="hidden" name="id" />
+              <input type="hidden" name="body_format" value="markdown" />
               <div class="editor-form-top">
                 <span class="admin-form-index">ARTICLE EDITOR</span>
                 <button type="button" data-close-editor>关闭 ×</button>
@@ -158,9 +165,14 @@
               <div><p class="eyebrow">PROJECTS / 项目</p><h1>项目管理</h1></div>
               <button class="button button-primary" type="button" data-new-project>新建项目 <span>＋</span></button>
             </div>
+            <div class="admin-hint">
+              <p>可以把网站内置的 3 个学习项目导入数据库，之后统一管理。</p>
+              <button type="button" data-import-projects>导入示例项目</button>
+            </div>
             <div class="admin-table" data-admin-projects></div>
             <form class="editor-form" data-project-form hidden>
               <input type="hidden" name="id" />
+              <input type="hidden" name="body_format" value="markdown" />
               <div class="editor-form-top">
                 <span class="admin-form-index">PROJECT EDITOR</span>
                 <button type="button" data-close-editor>关闭 ×</button>
