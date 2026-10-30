@@ -1118,6 +1118,11 @@ function mapRemoteResource(resource) {
   };
 }
 
+function mergeBySlug(defaultItems, remoteItems) {
+  const remoteSlugs = new Set(remoteItems.map((item) => item.slug));
+  return [...remoteItems, ...defaultItems.filter((item) => !remoteSlugs.has(item.slug))];
+}
+
 async function loadRemoteContent() {
   const backend = window.Backend;
   if (!backend?.configured) return;
@@ -1129,7 +1134,7 @@ async function loadRemoteContent() {
       backend
         .select("posts", "select=*&published=eq.true&order=post_date.desc")
         .then((posts) => {
-          if (posts.length) POSTS = posts.map(mapRemotePost);
+          if (posts.length) POSTS = mergeBySlug(POSTS, posts.map(mapRemotePost));
         }),
     );
   }
@@ -1147,7 +1152,7 @@ async function loadRemoteContent() {
       backend
         .select("projects", "select=*&published=eq.true&order=sort_order.asc,created_at.desc")
         .then((projects) => {
-          if (projects.length) PROJECTS = projects.map(mapRemoteProject);
+          if (projects.length) PROJECTS = mergeBySlug(PROJECTS, projects.map(mapRemoteProject));
         }),
     );
   }
