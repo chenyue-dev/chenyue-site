@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>帅栈 · Shuai Stack</title>
+    <title>帅栈 · Code Domain</title>
     <link>https://your-project.pages.dev/</link>
-    <description>小帅的 Java 全栈实验室，记录代码、工程实践与开发工具。</description>
+    <description>以代码构建秩序，记录 Java、全栈工程、开发工具与 AI 实践。</description>
     <language>zh-CN</language>
     <lastBuildDate>Fri, 30 Oct 2026 20:00:00 +0800</lastBuildDate>
     <item>
