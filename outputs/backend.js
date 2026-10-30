@@ -88,7 +88,7 @@
     const session = await getSession();
     return {
       apikey: anonKey,
-      ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+      Authorization: `Bearer ${session?.access_token || anonKey}`,
     };
   }
 
@@ -134,7 +134,7 @@
   async function insert(table, values) {
     return rest(table, {
       method: "POST",
-      headers: { Prefer: "return=representation" },
+      headers: { Prefer: "return=minimal" },
       body: JSON.stringify(values),
     });
   }
