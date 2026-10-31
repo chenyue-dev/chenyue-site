@@ -359,12 +359,22 @@ function renderProjects() {
   const grid = $("[data-project-grid]");
   if (!grid) return;
 
-  $$("[data-project-count]").forEach((node) => {
-    node.textContent = String(PROJECTS.length).padStart(2, "0");
-  });
+  const search = $("[data-project-search]");
+  const empty = $("[data-project-empty]");
+  const render = () => {
+    const query = (search?.value || "").trim().toLocaleLowerCase("zh-CN");
+    const filtered = PROJECTS.filter((project) =>
+      `${project.title} ${project.summary} ${project.tech_stack || ""}`
+        .toLocaleLowerCase("zh-CN")
+        .includes(query),
+    );
 
-  grid.innerHTML = PROJECTS.map(
-    (project, index) => `
+    $$("[data-project-count]").forEach((node) => {
+      node.textContent = String(filtered.length).padStart(2, "0");
+    });
+    if (empty) empty.hidden = filtered.length > 0;
+    grid.innerHTML = filtered.map(
+      (project, index) => `
       <article class="project-card">
         <a class="project-card-visual${project.cover_image ? " has-image" : ""}" href="${projectUrl(project)}">
           <span class="project-card-number">0${index + 1}</span>
@@ -383,7 +393,39 @@ function renderProjects() {
         </div>
       </article>
     `,
-  ).join("");
+    ).join("");
+  };
+
+  search?.addEventListener("input", render);
+  render();
+}
+
+function renderHomeProjects() {
+  const container = $("[data-home-projects]");
+  if (!container) return;
+  const projects = PROJECTS.filter((project) => project.featured).slice(0, 3);
+
+  container.innerHTML = projects
+    .map(
+      (project, index) => `
+        <article class="home-project-card">
+          <a class="home-project-visual" href="${projectUrl(project)}">
+            ${
+              project.cover_image
+                ? `<img src="${escapeHtml(safeLink(project.cover_image))}" alt="" loading="lazy" />`
+                : `<span>0${index + 1}</span><b aria-hidden="true">&lt;/&gt;</b>`
+            }
+          </a>
+          <div class="home-project-copy">
+            <span>${escapeHtml(project.status || "PROJECT")} · ${escapeHtml(project.tech_stack || "LEARNING")}</span>
+            <h3><a href="${projectUrl(project)}">${escapeHtml(project.title)}</a></h3>
+            <p>${escapeHtml(project.summary)}</p>
+            <a class="text-link" href="${projectUrl(project)}">查看案例 <span>↗</span></a>
+          </div>
+        </article>
+      `,
+    )
+    .join("");
 }
 
 function renderProjectPage() {
@@ -1131,6 +1173,7 @@ async function initializeSite() {
   renderLatestPosts();
   renderArchive();
   renderResources();
+  renderHomeProjects();
   renderProjects();
   renderArticlePage();
   renderProjectPage();
