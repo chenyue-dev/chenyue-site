@@ -350,8 +350,8 @@
   }
 
   async function handleImageUpload(input) {
-    const file = input.files?.[0];
-    if (!file) return;
+    const files = Array.from(input.files || []);
+    if (!files.length) return;
     const form = input.closest("form");
     const targetName = input.dataset.uploadTo;
     const target = form.elements[targetName];
@@ -359,14 +359,19 @@
     const textNode = [...label.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
     const originalLabel = textNode?.nodeValue || "上传图片";
     if (textNode) textNode.nodeValue = "正在上传…";
+    let uploaded = 0;
+    const selectedFiles = targetName === "body" ? files : files.slice(0, 1);
     try {
-      const url = await backend.uploadImage(file, input.dataset.uploadFolder || "uploads");
-      if (targetName === "body") {
-        insertIntoTextarea(target, `\n![${file.name.replace(/[\[\]]/g, "")}](${url})\n`);
-      } else if (target) {
-        target.value = url;
+      for (const file of selectedFiles) {
+        const url = await backend.uploadImage(file, input.dataset.uploadFolder || "uploads");
+        if (targetName === "body") {
+          insertIntoTextarea(target, `\n![${file.name.replace(/[\[\]]/g, "")}](${url})\n`);
+        } else if (target) {
+          target.value = url;
+        }
+        uploaded += 1;
       }
-      toast("图片上传成功");
+      toast(`${uploaded} 张图片上传成功`);
     } catch (error) {
       toast(`图片上传失败：${error.message}`, "error");
     } finally {

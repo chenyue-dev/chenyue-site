@@ -172,7 +172,7 @@
                 <textarea name="body" rows="22" required placeholder="## 从一个问题开始&#10;&#10;写下你的正文……"></textarea>
               </label>
               <div class="editor-upload-row">
-                <label class="file-button">上传正文图片<input type="file" accept="image/*" data-upload-to="body" data-upload-folder="posts" /></label>
+                <label class="file-button">上传正文图片<input type="file" accept="image/*" multiple data-upload-to="body" data-upload-folder="posts" /></label>
                 <small>图片上传完成后，Markdown 图片语法会插入到正文光标位置。</small>
               </div>
               <label class="checkbox-label"><input type="checkbox" name="published" checked /> <span>立即发布</span></label>
@@ -220,6 +220,10 @@
                 </div>
               </div>
               <label><span>项目说明（支持 Markdown）</span><textarea name="body" rows="15" required></textarea></label>
+              <div class="editor-upload-row">
+                <label class="file-button">上传项目截图<input type="file" accept="image/*" multiple data-upload-to="body" data-upload-folder="projects" /></label>
+                <small>支持一次选择多张图片，上传后会按顺序插入项目正文。</small>
+              </div>
               <div class="form-grid two checks">
                 <label class="checkbox-label"><input type="checkbox" name="featured" /> <span>精选项目</span></label>
                 <label class="checkbox-label"><input type="checkbox" name="published" checked /> <span>公开展示</span></label>
