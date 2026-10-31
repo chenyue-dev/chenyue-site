@@ -994,14 +994,21 @@ async function setupPublicAnalytics() {
   if (!backend?.configured || window.location.protocol !== "https:") return;
   if (["admin", "install"].includes(document.body.dataset.page)) return;
 
-  let visitorId = localStorage.getItem("shuaistack_visitor_id");
-  if (!visitorId) {
-    visitorId = crypto.randomUUID();
-    localStorage.setItem("shuaistack_visitor_id", visitorId);
+  let visitorId = null;
+  try {
+    visitorId = localStorage.getItem("shuaistack_visitor_id");
+    if (!visitorId) {
+      visitorId = window.crypto?.randomUUID?.() || createFallbackUuid();
+      localStorage.setItem("shuaistack_visitor_id", visitorId);
+    }
+  } catch {
+    visitorId = null;
   }
 
   const path = `${window.location.pathname}${window.location.search}`.slice(0, 300);
-  await backend.rpc("record_page_view", { p_path: path, p_visitor_id: visitorId }).catch(() => {});
+  if (visitorId) {
+    await backend.rpc("record_page_view", { p_path: path, p_visitor_id: visitorId }).catch(() => {});
+  }
 
   const stats = await backend.rpc("get_public_site_stats").catch(() => null);
   if (stats) {
@@ -1009,6 +1016,24 @@ async function setupPublicAnalytics() {
       node.textContent = new Intl.NumberFormat("zh-CN").format(stats.totalViews || 0);
     });
   }
+}
+
+function createFallbackUuid() {
+  const bytes = new Uint8Array(16);
+  if (window.crypto?.getRandomValues) {
+    window.crypto.getRandomValues(bytes);
+  } else {
+    for (let index = 0; index < bytes.length; index += 1) {
+      bytes[index] = Math.floor(Math.random() * 256);
+    }
+  }
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const value = [...bytes].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+  return `${value.slice(0, 8)}-${value.slice(8, 12)}-${value.slice(12, 16)}-${value.slice(
+    16,
+    20,
+  )}-${value.slice(20)}`;
 }
 
 function mapRemotePost(post) {
@@ -1114,7 +1139,7 @@ async function initializeSite() {
   setupNavigation();
   setupUtilities();
 setupPWA();
-setupPublicAnalytics();
+setupPublicAnalytics().catch(() => {});
 }
 
 initializeSite();
