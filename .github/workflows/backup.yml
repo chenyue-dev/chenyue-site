@@ -6,7 +6,7 @@ on:
     - cron: "0 3 1 * *"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   backup:
@@ -28,10 +28,27 @@ jobs:
           SUPABASE_STORAGE_BUCKET: media
         run: node outputs/tools/backup.mjs
 
+      - name: Create encrypted archive
+        env:
+          BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+        run: |
+          tar -czf backup.tar.gz -C backups .
+          gpg --batch --yes --passphrase "$BACKUP_PASSPHRASE" \
+            --symmetric --cipher-algo AES256 backup.tar.gz
+
+      - name: Publish encrypted backup release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="backup-$(date -u +%Y%m%d-%H%M%S)"
+          gh release create "$TAG" backup.tar.gz.gpg \
+            --title "Encrypted backup $TAG" \
+            --notes "Encrypted Supabase and media backup generated automatically."
+
       - name: Upload backup artifact
         uses: actions/upload-artifact@v4
         with:
           name: shuaistack-backup-${{ github.run_number }}
           path: backups/
           if-no-files-found: error
-          retention-days: 30
+          retention-days: 90
