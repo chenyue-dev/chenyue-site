@@ -28,7 +28,7 @@ const headers = {
 };
 const stamp = new Date().toISOString().replaceAll(":", "-").replace(/\.\d{3}Z$/, "Z");
 const outputDirectory = path.resolve("backups", stamp);
-const tables = ["site_admins", "posts", "projects", "resources", "comments"];
+const tables = ["posts", "projects", "resources", "comments"];
 
 async function request(url, options = {}) {
   const response = await fetch(url, {

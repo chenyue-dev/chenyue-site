@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://your-project.pages.dev/</loc><priority>1.0</priority></url>
-  <url><loc>https://your-project.pages.dev/articles.html</loc><priority>0.9</priority></url>
-  <url><loc>https://your-project.pages.dev/projects.html</loc><priority>0.9</priority></url>
-  <url><loc>https://your-project.pages.dev/resources.html</loc><priority>0.9</priority></url>
-  <url><loc>https://your-project.pages.dev/about.html</loc><priority>0.7</priority></url>
-  <url><loc>https://your-project.pages.dev/posts/build-your-own-tech-blog</loc><priority>0.8</priority></url>
-  <url><loc>https://your-project.pages.dev/projects/shuaistack</loc><priority>0.7</priority></url>
+  <url><loc>https://chenyue-dev.github.io/chenyue-site/</loc><priority>1.0</priority></url>
+  <url><loc>https://chenyue-dev.github.io/chenyue-site/articles.html</loc><priority>0.9</priority></url>
+  <url><loc>https://chenyue-dev.github.io/chenyue-site/projects.html</loc><priority>0.9</priority></url>
+  <url><loc>https://chenyue-dev.github.io/chenyue-site/resources.html</loc><priority>0.9</priority></url>
+  <url><loc>https://chenyue-dev.github.io/chenyue-site/about.html</loc><priority>0.7</priority></url>
+  <url><loc>https://chenyue-dev.github.io/chenyue-site/post.html?slug=build-your-own-tech-blog</loc><priority>0.8</priority></url>
+  <url><loc>https://chenyue-dev.github.io/chenyue-site/post.html?slug=sustainable-knowledge-system</loc><priority>0.8</priority></url>
+  <url><loc>https://chenyue-dev.github.io/chenyue-site/post.html?slug=css-container-queries</loc><priority>0.8</priority></url>
+  <url><loc>https://chenyue-dev.github.io/chenyue-site/post.html?slug=reading-progress-bar</loc><priority>0.8</priority></url>
+  <url><loc>https://chenyue-dev.github.io/chenyue-site/post.html?slug=writing-makes-thinking-clear</loc><priority>0.8</priority></url>
+  <url><loc>https://chenyue-dev.github.io/chenyue-site/post.html?slug=nodejs-performance-hunt</loc><priority>0.8</priority></url>
+  <url><loc>https://chenyue-dev.github.io/chenyue-site/project.html?slug=shuaistack</loc><priority>0.7</priority></url>
+  <url><loc>https://chenyue-dev.github.io/chenyue-site/project.html?slug=java-learning-roadmap</loc><priority>0.7</priority></url>
+  <url><loc>https://chenyue-dev.github.io/chenyue-site/project.html?slug=student-toolbox</loc><priority>0.7</priority></url>
 </urlset>

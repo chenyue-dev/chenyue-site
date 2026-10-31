@@ -11,5 +11,5 @@ window.SITE_CONFIG = {
   supabaseUrl: "https://rsopweveszbwgjzfoqfl.supabase.co",
   supabaseAnonKey: "sb_publishable_63gOWqhIWGdE6PHixyw2iA_8g0WhCGy",
   storageBucket: "media",
-  siteUrl: "https://chenyue-dev.github.io/chenyue-site/outputs/",
+  siteUrl: "https://chenyue-dev.github.io/chenyue-site/",
 };

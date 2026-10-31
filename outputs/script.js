@@ -6,6 +6,7 @@
 let POSTS = Array.isArray(window.SITE_POSTS) ? window.SITE_POSTS : [];
 let RESOURCES = Array.isArray(window.SITE_RESOURCES) ? window.SITE_RESOURCES : [];
 let PROJECTS = Array.isArray(window.SITE_PROJECTS) ? window.SITE_PROJECTS : [];
+const SITE_BASE_URL = "https://chenyue-dev.github.io/chenyue-site";
 
 const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
@@ -396,6 +397,10 @@ function renderProjectPage() {
   const index = PROJECTS.indexOf(project);
   const nextProject = PROJECTS[(index + 1) % PROJECTS.length];
   document.title = `${project.title} · 帅栈`;
+  $('link[rel="canonical"]')?.setAttribute(
+    "href",
+    `${SITE_BASE_URL}/project.html?slug=${encodeURIComponent(project.slug)}`,
+  );
   const description = $('meta[name="description"]');
   if (description) description.content = project.summary || project.description || "";
 
@@ -462,6 +467,10 @@ function renderArticlePage() {
   const index = POSTS.indexOf(post);
 
   document.title = `${post.title} · 帅栈`;
+  $('link[rel="canonical"]')?.setAttribute(
+    "href",
+    `${SITE_BASE_URL}/post.html?slug=${encodeURIComponent(post.slug)}`,
+  );
   const description = $('meta[name="description"]');
   if (description) description.content = post.excerpt;
 

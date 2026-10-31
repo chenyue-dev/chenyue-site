@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin.html
 
-Sitemap: https://your-project.pages.dev/sitemap.xml
+Sitemap: https://chenyue-dev.github.io/chenyue-site/sitemap.xml
