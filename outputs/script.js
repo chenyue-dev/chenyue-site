@@ -456,6 +456,54 @@ function renderProjectPage() {
       </a>
     `;
   }
+
+  const roadmap = $("[data-learning-roadmap]");
+  if (roadmap && project.slug === "java-learning-roadmap") {
+    roadmap.hidden = false;
+    setupLearningRoadmap();
+  }
+}
+
+function setupLearningRoadmap() {
+  const roadmap = $("[data-learning-roadmap]");
+  if (!roadmap) return;
+  const topics = $$("[data-roadmap-topic]", roadmap);
+  const progress = $("[data-roadmap-progress]", roadmap);
+  const progressBar = $("[data-roadmap-progress-bar]", roadmap);
+  const progressText = $("[data-roadmap-progress-text]", roadmap);
+  const storageKey = "shuaistack-java-roadmap";
+
+  const readProgress = () => {
+    try {
+      return new Set(JSON.parse(localStorage.getItem(storageKey) || "[]"));
+    } catch {
+      return new Set();
+    }
+  };
+
+  let completed = readProgress();
+  const update = () => {
+    topics.forEach((topic) => {
+      const done = completed.has(topic.dataset.roadmapTopic);
+      topic.classList.toggle("is-complete", done);
+      topic.setAttribute("aria-pressed", String(done));
+    });
+    const ratio = topics.length ? Math.round((completed.size / topics.length) * 100) : 0;
+    if (progress) progress.textContent = `${ratio}%`;
+    if (progressBar) progressBar.style.width = `${ratio}%`;
+    if (progressText) progressText.textContent = `${completed.size} / ${topics.length} 个知识点`;
+    localStorage.setItem(storageKey, JSON.stringify([...completed]));
+  };
+
+  topics.forEach((topic) => {
+    topic.addEventListener("click", () => {
+      const id = topic.dataset.roadmapTopic;
+      if (completed.has(id)) completed.delete(id);
+      else completed.add(id);
+      update();
+    });
+  });
+  update();
 }
 
 function renderArticlePage() {
