@@ -45,7 +45,7 @@ npx serve .
 ## 第一次个性化
 
 1. 在 `about.html` 中继续补充小帅的个人经历、邮箱和 GitHub 地址。
-2. 在所有页面页脚中替换 `hello@example.com` 与 GitHub 链接。
+2. 已配置的公开邮箱为 `3518220835@qq.com`，GitHub 为 `chenyue-dev`。
 3. 如果以后想换博客名，搜索页面中的“帅栈”和“SHUAI STACK”。
 4. 未配置云端时，可在 `script.js` 顶部的 `POSTS` 数组中修改示例文章。
 5. 在 `resources-data.js` 中增加、删除或更新开发资源和 AI 网站。

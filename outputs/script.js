@@ -954,6 +954,15 @@ function setupUtilities() {
   }
 }
 
+function setupPWA() {
+  if (!("serviceWorker" in navigator) || window.location.protocol !== "https:") return;
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js").catch((error) => {
+      console.warn("Service worker registration failed:", error);
+    });
+  });
+}
+
 function mapRemotePost(post) {
   return {
     slug: post.slug,
@@ -1056,6 +1065,7 @@ async function initializeSite() {
   setupTheme();
   setupNavigation();
   setupUtilities();
+setupPWA();
 }
 
 initializeSite();
