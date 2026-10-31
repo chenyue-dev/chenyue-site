@@ -1,4 +1,4 @@
-const CACHE_NAME = "shuaistack-pwa-2026-10-31-v2";
+const CACHE_NAME = "shuaistack-pwa-2026-10-31-v3";
 const APP_SHELL = [
   "./",
   "./index.html",

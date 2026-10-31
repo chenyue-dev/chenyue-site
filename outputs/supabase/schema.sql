@@ -87,10 +87,21 @@ create table if not exists public.comments (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.page_views (
+  id uuid primary key default gen_random_uuid(),
+  path text not null check (char_length(path) between 1 and 300),
+  visitor_id uuid not null,
+  view_date date not null default current_date,
+  viewed_at timestamptz not null default now(),
+  unique (path, visitor_id, view_date)
+);
+
 create index if not exists posts_published_date_idx on public.posts (published, post_date desc);
 create index if not exists projects_published_order_idx on public.projects (published, sort_order, created_at desc);
 create index if not exists resources_order_idx on public.resources (sort_order, name);
 create index if not exists comments_article_status_idx on public.comments (article_slug, status, created_at desc);
+create index if not exists page_views_date_idx on public.page_views (view_date desc);
+create index if not exists page_views_path_idx on public.page_views (path, view_date desc);
 
 grant usage on schema public to anon, authenticated;
 grant select on public.posts, public.projects, public.resources, public.comments to anon;
@@ -134,6 +145,7 @@ alter table public.posts enable row level security;
 alter table public.projects enable row level security;
 alter table public.resources enable row level security;
 alter table public.comments enable row level security;
+alter table public.page_views enable row level security;
 
 drop policy if exists "admin sees own membership" on public.site_admins;
 create policy "admin sees own membership"
@@ -212,6 +224,76 @@ create policy "admin deletes comments"
 on public.comments for delete
 to authenticated
 using (public.is_site_admin());
+
+create or replace function public.record_page_view(p_path text, p_visitor_id uuid)
+returns void
+language sql
+security definer
+set search_path = public
+as $$
+  insert into public.page_views (path, visitor_id)
+  values (left(p_path, 300), p_visitor_id)
+  on conflict (path, visitor_id, view_date) do nothing;
+$$;
+
+create or replace function public.get_public_site_stats()
+returns jsonb
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select jsonb_build_object(
+    'totalViews', count(*),
+    'uniqueVisitors', count(distinct visitor_id),
+    'todayViews', count(*) filter (where view_date = current_date),
+    'todayVisitors', count(distinct visitor_id) filter (where view_date = current_date)
+  )
+  from public.page_views;
+$$;
+
+create or replace function public.get_admin_site_stats()
+returns jsonb
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+begin
+  if not public.is_site_admin() then
+    raise exception 'Not authorized';
+  end if;
+
+  return (
+    select jsonb_build_object(
+      'totalViews', count(*),
+      'uniqueVisitors', count(distinct visitor_id),
+      'todayViews', count(*) filter (where view_date = current_date),
+      'todayVisitors', count(distinct visitor_id) filter (where view_date = current_date),
+      'topPages', coalesce((
+        select jsonb_agg(jsonb_build_object('path', path, 'views', views))
+        from (
+          select path, count(*) as views
+          from public.page_views
+          where view_date >= current_date - 30
+          group by path
+          order by views desc, path
+          limit 8
+        ) ranked
+      ), '[]'::jsonb)
+    )
+    from public.page_views
+  );
+end;
+$$;
+
+revoke all on function public.record_page_view(text, uuid) from public;
+revoke all on function public.get_public_site_stats() from public;
+revoke all on function public.get_admin_site_stats() from public;
+grant execute on function public.record_page_view(text, uuid) to anon, authenticated;
+grant execute on function public.get_public_site_stats() to anon, authenticated;
+grant execute on function public.get_admin_site_stats() to authenticated;
+grant select, insert, update, delete on public.page_views to service_role;
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values (

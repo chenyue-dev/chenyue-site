@@ -234,6 +234,34 @@
     renderAll();
   }
 
+  async function loadAnalytics() {
+    try {
+      const stats = await backend.rpc("get_admin_site_stats");
+      const format = (value) => new Intl.NumberFormat("zh-CN").format(value || 0);
+      $("[data-analytics-total]").textContent = format(stats.totalViews);
+      $("[data-analytics-visitors]").textContent = format(stats.uniqueVisitors);
+      $("[data-analytics-today]").textContent = format(stats.todayViews);
+      $("[data-analytics-today-visitors]").textContent = format(stats.todayVisitors);
+      const container = $("[data-analytics-top-pages]");
+      if (container) {
+        container.innerHTML = stats.topPages?.length
+          ? stats.topPages
+              .map(
+                (page) => `
+                  <div class="admin-top-page">
+                    <code>${escapeHtml(page.path)}</code>
+                    <strong>${format(page.views)}</strong>
+                  </div>
+                `,
+              )
+              .join("")
+          : '<div class="admin-table-empty">还没有访问数据。</div>';
+      }
+    } catch {
+      // Analytics is optional and should not block the admin.
+    }
+  }
+
   function openPost(post = null) {
     const form = $("[data-post-form]");
     form.reset();
@@ -467,6 +495,7 @@
       day: "numeric",
     }).format(new Date());
     await loadAll();
+    await loadAnalytics();
     showPanel("overview");
   }
 

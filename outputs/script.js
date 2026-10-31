@@ -989,6 +989,28 @@ function setupPWA() {
   });
 }
 
+async function setupPublicAnalytics() {
+  const backend = window.Backend;
+  if (!backend?.configured || window.location.protocol !== "https:") return;
+  if (["admin", "install"].includes(document.body.dataset.page)) return;
+
+  let visitorId = localStorage.getItem("shuaistack_visitor_id");
+  if (!visitorId) {
+    visitorId = crypto.randomUUID();
+    localStorage.setItem("shuaistack_visitor_id", visitorId);
+  }
+
+  const path = `${window.location.pathname}${window.location.search}`.slice(0, 300);
+  await backend.rpc("record_page_view", { p_path: path, p_visitor_id: visitorId }).catch(() => {});
+
+  const stats = await backend.rpc("get_public_site_stats").catch(() => null);
+  if (stats) {
+    $$("[data-site-views]").forEach((node) => {
+      node.textContent = new Intl.NumberFormat("zh-CN").format(stats.totalViews || 0);
+    });
+  }
+}
+
 function mapRemotePost(post) {
   return {
     slug: post.slug,
@@ -1092,6 +1114,7 @@ async function initializeSite() {
   setupNavigation();
   setupUtilities();
 setupPWA();
+setupPublicAnalytics();
 }
 
 initializeSite();

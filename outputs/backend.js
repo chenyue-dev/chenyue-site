@@ -154,6 +154,13 @@
     });
   }
 
+  async function rpc(functionName, args = {}) {
+    return rest(`rpc/${functionName}`, {
+      method: "POST",
+      body: JSON.stringify(args),
+    });
+  }
+
   async function signInWithEmail(email, redirectTo = window.location.href) {
     if (!configured) throw new Error("Supabase 尚未配置");
     const url = new URL(`${baseUrl}/auth/v1/otp`);
@@ -257,6 +264,7 @@
     insert,
     update,
     remove,
+    rpc,
     signInWithEmail,
     signInWithGitHub,
     signOut,
