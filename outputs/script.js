@@ -981,9 +981,11 @@ function setupPWA() {
     }
   });
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js").catch((error) => {
+    navigator.serviceWorker
+      .register("./service-worker.js", { updateViaCache: "none" })
+      .catch((error) => {
       console.warn("Service worker registration failed:", error);
-    });
+      });
   });
 }
 
