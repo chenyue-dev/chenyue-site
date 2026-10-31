@@ -5446,8 +5446,20 @@ svg {
   line-height: 2;
 }
 
-.install-page > .button {
+.install-actions {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.install-actions .button {
   width: fit-content;
+}
+
+.install-message {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 11px;
 }
 
 @media (max-width: 620px) {
@@ -5464,6 +5476,11 @@ svg {
 
   .install-grid {
     grid-template-columns: 1fr;
+  }
+
+  .install-actions {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 

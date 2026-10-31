@@ -956,6 +956,30 @@ function setupUtilities() {
 
 function setupPWA() {
   if (!("serviceWorker" in navigator) || window.location.protocol !== "https:") return;
+  let installPrompt = null;
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    installPrompt = event;
+  });
+  $("[data-install-app]")?.addEventListener("click", async () => {
+    const message = $("[data-install-message]");
+    if (installPrompt) {
+      installPrompt.prompt();
+      const choice = await installPrompt.userChoice;
+      if (message) {
+        message.textContent =
+          choice.outcome === "accepted" ? "正在安装帅栈…" : "已取消安装，你随时可以再次点击安装。";
+      }
+      installPrompt = null;
+      return;
+    }
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    if (message) {
+      message.textContent = isIOS
+        ? "iPhone 请使用 Safari：点击底部“分享”按钮，再选择“添加到主屏幕”。"
+        : "请点击浏览器右上角菜单，选择“安装应用”或“添加到主屏幕”。";
+    }
+  });
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("./service-worker.js").catch((error) => {
       console.warn("Service worker registration failed:", error);

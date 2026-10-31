@@ -23,7 +23,7 @@
         <div>
           <p class="eyebrow">INSTALL THE APP / 安装应用</p>
           <h1>把帅栈<br />装进手机。</h1>
-          <p>安装后会像普通 App 一样拥有桌面图标，并以独立窗口打开。文章页面可以缓存阅读，后台与留言需要联网。</p>
+          <p>这不是下载 APK 安装包。浏览器会把网站安装到桌面，之后像普通 App 一样拥有独立图标和窗口。文章页面可以缓存阅读，后台与留言需要联网。</p>
         </div>
       </div>
       <div class="install-grid">
@@ -48,7 +48,15 @@
           </ol>
         </article>
       </div>
-      <a class="button button-primary" href="index.html">现在打开帅栈 <span>↗</span></a>
+      <div class="install-actions">
+        <button class="button button-primary" type="button" data-install-app>
+          安装到当前设备 <span>↓</span>
+        </button>
+        <a class="text-link" href="index.html">暂时不安装，直接打开 <span>↗</span></a>
+      </div>
+      <p class="install-message" data-install-message>
+        如果当前浏览器不支持直接安装，请使用下方对应的浏览器菜单操作。
+      </p>
     </main>
     <script src="script.js" defer></script>
   </body>
